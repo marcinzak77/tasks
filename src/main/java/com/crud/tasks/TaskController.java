@@ -1,6 +1,5 @@
-package pl.controller;
+package com.crud.tasks;
 
-import pl.domain.TaskDto;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
