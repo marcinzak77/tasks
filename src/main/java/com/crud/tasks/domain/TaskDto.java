@@ -1,14 +1,12 @@
-package com.crud.tasks;
+package com.crud.tasks.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class Task {
+public class TaskDto {
     private long id;
     private String title;
     private String content;
 }
-
-
