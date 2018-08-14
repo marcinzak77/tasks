@@ -1,5 +1,7 @@
 package com.crud.tasks.service;
 
+import com.crud.tasks.config.AdminConfig;
+import com.crud.tasks.config.MailConfig;
 import com.crud.tasks.domain.Mail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,9 +18,13 @@ public class SimpleEmailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
+    @Autowired
+    private MailConfig mailConfig;
+
     public void send(final Mail mail) {
         try {
             SimpleMailMessage mailMessage = createMailMessage(mail);
+            mailMessage.setFrom(mailConfig.getSenderMail());
             javaMailSender.send(mailMessage);
             LOGGER.info("Email has been sent.");
         } catch (Exception e) {
