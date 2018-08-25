@@ -92,7 +92,7 @@ public class TaskControllerTest {
         Task task = new Task(2L, "test 2", "test 2");
         when(dbService.saveTask(any(Task.class))).thenReturn(task);
         when(taskMapper.mapToTask(taskDto)).thenReturn(task);
-        when(taskMapper.mapToTaskDto(any(Task.class))).thenCallRealMethod();
+        when(taskMapper.mapToTaskDto(any(Task.class))).thenReturn(taskDto);
         Gson gson = new Gson();
         String jsonContent = gson.toJson(taskDto);
         //When & Then
@@ -100,9 +100,9 @@ public class TaskControllerTest {
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(2)))
-                .andExpect(jsonPath("$.title", is("test 2")))
-                .andExpect(jsonPath("$.content", is("test 2")));
+                .andExpect(jsonPath("$.id", is(1)))
+                .andExpect(jsonPath("$.title", is("test")))
+                .andExpect(jsonPath("$.content", is("test")));
     }
 
     @Test
@@ -111,7 +111,7 @@ public class TaskControllerTest {
         TaskDto taskDto = new TaskDto(1L, "test", "test");
         Task task = new Task(2L, "test 2", "test 2");
         when(dbService.saveTask(any(Task.class))).thenReturn(task);
-        when(taskMapper.mapToTask(any(TaskDto.class))).thenCallRealMethod();
+        when(taskMapper.mapToTask(any(TaskDto.class))).thenReturn(task);
         Gson gson = new Gson();
         String jsonContent = gson.toJson(taskDto);
         //When & Then
