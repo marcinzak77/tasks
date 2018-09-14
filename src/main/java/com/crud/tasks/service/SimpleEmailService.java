@@ -29,8 +29,6 @@ public class SimpleEmailService {
     public void send(final Mail mail) {
         LOGGER.info("Starting meail preparation...");
         try {
-            //SimpleMailMessage mailMessage = createMailMessage(mail);
-            //mailMessage.setFrom(mailConfig.getSenderMail());
             javaMailSender.send(createMimeMessage(mail));
             LOGGER.info("Email has been sent.");
         } catch (Exception e) {
