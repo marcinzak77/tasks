@@ -22,14 +22,14 @@ public class EmailScheduler {
 
     private static final String SUBJECT = "Tasks: Once a day email";
 
-    @Scheduled(cron = "0 0 10 * * *")
+    @Scheduled(cron = "0 0 */10 * * *")
     public void sendInformationEmail() {
         long size = taskRepository.count();
         String tasks = " tasks";
         if (size==1) {
             tasks = " task";
         }
-        simpleEmailService.send(new Mail(
+        simpleEmailService.sendScheduler(new Mail(
                 adminConfig.getAdminMail(),
                 null,
                 SUBJECT,
