@@ -10,16 +10,16 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SimpleEmailServiceTest {
 
     @InjectMocks
     private SimpleEmailService simpleEmailService;
+
+    @Mock
+    private MailCreatorService mailCreatorService;
 
     @Mock
     private JavaMailSender javaMailSender;
@@ -30,9 +30,10 @@ public class SimpleEmailServiceTest {
     @Test
     public void shouldSendEmail() {
         //Given
-        Mail mail = new Mail("test@test.com", null, "test", "test");
+        Mail mail = new Mail("test@test.com", null, "test", "message");
 
         when(mailConfig.getSenderMail()).thenReturn("testFrom@testFrom.com");
+        when(mailCreatorService.buildTrelloCardEmail(anyString())).thenReturn("message");
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setFrom("testFrom@testFrom.com");
