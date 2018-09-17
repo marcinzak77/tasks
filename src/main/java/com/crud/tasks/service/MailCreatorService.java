@@ -58,6 +58,8 @@ public class MailCreatorService {
         context = prepareContext();
 
         context.setVariable("message", message);
+        context.setVariable("show_button", true);
+        context.setVariable("is_friend", true);
         return templateEngine.process("mail/once-a-day-mail", context);
     }
 }
